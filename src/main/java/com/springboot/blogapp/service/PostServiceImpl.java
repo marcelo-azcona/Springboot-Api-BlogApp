@@ -2,6 +2,7 @@ package com.springboot.blogapp.service;
 
 import com.springboot.blogapp.dto.PostDto;
 import com.springboot.blogapp.entity.Post;
+import com.springboot.blogapp.exception.ResourceNotFoundException;
 import com.springboot.blogapp.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,15 @@ public class PostServiceImpl implements PostService {
                 entityToDto(post)).collect(Collectors.toList());
 
         return postsDto;
+    }
+
+    @Override
+    public PostDto getPostById(long id) {
+        Post post = postRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Post", "id", id));
+
+        PostDto postDto = entityToDto(post);
+        return postDto;
     }
 
     private PostDto entityToDto(Post post) {

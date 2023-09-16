@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/v1/posts")
 public class PostController {
 
     private final PostService postService;
@@ -20,7 +20,6 @@ public class PostController {
         this.postService = postService;
     }
 
-    // create blog post endpoint
     @PostMapping
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
@@ -29,5 +28,11 @@ public class PostController {
     @GetMapping
     public List<PostDto> getAllPost() {
         return postService.getAllPost();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") long id) {
+
+        return new ResponseEntity<>(postService.getPostById(id), HttpStatus.OK);
     }
 }
