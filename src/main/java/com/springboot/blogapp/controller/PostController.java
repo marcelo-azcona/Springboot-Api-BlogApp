@@ -41,7 +41,7 @@ public class PostController {
 
         PostDto postResponse = postService.updatePost(postDto, id);
 
-        return new ResponseEntity<PostDto>(postResponse, HttpStatus.OK);
+        return new ResponseEntity<>(postResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
