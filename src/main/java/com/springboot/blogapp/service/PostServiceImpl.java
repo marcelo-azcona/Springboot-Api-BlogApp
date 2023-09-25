@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,10 +38,13 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public PostResponse getAllPost(int pageNo, int pageSize) {
+    public PostResponse getAllPost(int pageNo, int pageSize, String sortBy) {
 
-        // Pageable instance
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        // Pageable instance only for pagination
+        //Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+        // Pageable instance only for pagination and sorting
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
 
         Page<Post> posts = postRepository.findAll(pageable);
 
