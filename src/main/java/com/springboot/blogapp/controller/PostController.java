@@ -28,9 +28,10 @@ public class PostController {
     public PostResponse getAllPost(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
-            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy
+            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
     ) {
-        return postService.getAllPost(pageNo, pageSize, sortBy);
+        return postService.getAllPost(pageNo, pageSize, sortBy, sortDir);
     }
 
     @GetMapping("/{id}")
@@ -50,7 +51,7 @@ public class PostController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePost(@PathVariable(name = "id") long id) {
 
-        postService.deletePostbyId(id);
+        postService.deletePostById(id);
 
         return new ResponseEntity<>("Post entity deleted!", HttpStatus.OK);
     }

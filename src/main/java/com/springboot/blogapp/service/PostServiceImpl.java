@@ -38,13 +38,18 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public PostResponse getAllPost(int pageNo, int pageSize, String sortBy) {
+    public PostResponse getAllPost(int pageNo, int pageSize, String sortBy, String sortDir) {
 
-        // Pageable instance only for pagination
-        //Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Sort sort;
 
-        // Pageable instance only for pagination and sorting
-        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        if (sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())) {
+            sort = Sort.by(sortBy).ascending();
+        } else {
+            sort = Sort.by(sortBy).descending();
+        }
+
+        // Pageable instance for pagination and sorting
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
 
         Page<Post> posts = postRepository.findAll(pageable);
 
@@ -89,7 +94,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void deletePostbyId(long id) {
+    public void deletePostById(long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
         postRepository.delete(post);
     }
