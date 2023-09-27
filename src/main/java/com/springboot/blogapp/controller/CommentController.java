@@ -18,6 +18,10 @@ public class CommentController {
         this.commentService = commentService;
     }
 
+    @GetMapping("/post/{postId}")
+    public void getAllCommentsByPost(@PathVariable(value = "postId") long postId) {
+    }
+
     @PostMapping("/post/{postId}/comment")
     public ResponseEntity<CommentDto> createComment(@PathVariable(value = "postId") long postId,
                                                     @RequestBody CommentDto commentDto) {
