@@ -57,7 +57,14 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto getCommentById(long postId, long commentId) {
+
+        // retrieve post entity by id
         Post post = retrievePostById(postId);
+
+        // retrieve comment by id
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment", "id", commentId));
+
+        // Check if the comment belogs to the post
         return null;
     }
 
