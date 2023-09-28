@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/")
 public class CommentController {
@@ -18,8 +20,9 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping("/post/{postId}")
-    public void getAllCommentsByPost(@PathVariable(value = "postId") long postId) {
+    @GetMapping("/post/{postId}/comment")
+    public List<CommentDto> getAllCommentsByPost(@PathVariable(value = "postId") long postId) {
+        return commentService.getCommentsByPostId(postId);
     }
 
     @PostMapping("/post/{postId}/comment")
