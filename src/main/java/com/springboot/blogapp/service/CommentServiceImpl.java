@@ -3,10 +3,12 @@ package com.springboot.blogapp.service;
 import com.springboot.blogapp.dto.CommentDto;
 import com.springboot.blogapp.entity.Comment;
 import com.springboot.blogapp.entity.Post;
+import com.springboot.blogapp.exception.BlogApiException;
 import com.springboot.blogapp.exception.ResourceNotFoundException;
 import com.springboot.blogapp.repository.CommentRepository;
 import com.springboot.blogapp.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,10 +64,19 @@ public class CommentServiceImpl implements CommentService {
         Post post = retrievePostById(postId);
 
         // retrieve comment by id
-        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment", "id", commentId));
+        Comment commentById = commentRepository.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment", "id", commentId));
 
-        // Check if the comment belogs to the post
-        return null;
+        // Check if the comment belongs to the post
+        if (!commentById.getPost().getId().equals(post.getId())) {
+            throw new BlogApiException(HttpStatus.BAD_REQUEST, "Comment does not belong to post");
+        }
+//        Comment filteredComm = post.getComments().stream()
+//                .filter(comment -> comment.getId() == commentById.getId())
+//                .findFirst()
+//                .orElseThrow(() -> new BlogApiException(HttpStatus.BAD_REQUEST, "Comment does not belong to post"));
+//
+//        return entityToDto(filteredComm);
+        return entityToDto(commentById);
     }
 
     private Post retrievePostById(long postId) {
