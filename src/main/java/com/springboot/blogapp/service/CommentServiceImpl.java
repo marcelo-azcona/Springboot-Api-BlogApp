@@ -7,6 +7,7 @@ import com.springboot.blogapp.exception.BlogApiException;
 import com.springboot.blogapp.exception.ResourceNotFoundException;
 import com.springboot.blogapp.repository.CommentRepository;
 import com.springboot.blogapp.repository.PostRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,13 @@ public class CommentServiceImpl implements CommentService {
 
     private CommentRepository commentRepository;
     private PostRepository postRepository;
+    private ModelMapper modelMapper;
 
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository, ModelMapper modelMapper) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -126,23 +129,23 @@ public class CommentServiceImpl implements CommentService {
 
     private CommentDto entityToDto(Comment comment) {
 
-        CommentDto commentDto = new CommentDto();
+        CommentDto commentDto = modelMapper.map(comment, CommentDto.class);
+        /*CommentDto commentDto = new CommentDto();
         commentDto.setId(comment.getId());
         commentDto.setBody(comment.getBody());
         commentDto.setName(comment.getName());
-        commentDto.setEmail(comment.getEmail());
-
+        commentDto.setEmail(comment.getEmail());*/
         return commentDto;
     }
 
     private Comment dtoToEntity(CommentDto commentDto) {
 
-        Comment comment = new Comment();
+        Comment comment = modelMapper.map(commentDto, Comment.class);
+        /*Comment comment = new Comment();
         comment.setId(commentDto.getId());
         comment.setBody(commentDto.getBody());
         comment.setName(comment.getName());
-        comment.setEmail(comment.getEmail());
-
+        comment.setEmail(comment.getEmail());*/
         return comment;
     }
 }
