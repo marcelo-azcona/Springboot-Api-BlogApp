@@ -28,7 +28,7 @@ public class SecurityConfig {
     }
 
     // Authentication manager instance configuration
-    // The manager will use the @Autowired UserDetailsService to get the user from the database
+    // The manager will use the @Autowired UserDetailsService to get the user from the database (the custom created in the security package)
     // The manager automatically will use the @Bean PasswordEncoder
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
