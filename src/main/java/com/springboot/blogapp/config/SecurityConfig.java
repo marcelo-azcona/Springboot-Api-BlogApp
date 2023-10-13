@@ -29,8 +29,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // Authentication manager instance configuration
-    // The manager will use the @Autowired UserDetailsService to get the user from the database (the custom created in the security package)
+    // Authentication manager instance configuration for dependency injection
+    // The manager will use the @Autowired UserDetailsService to get the user from the database (the custom one created in the security package)
     // The manager automatically will use the @Bean PasswordEncoder
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
