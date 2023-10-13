@@ -1,6 +1,7 @@
 package com.springboot.blogapp.controller;
 
 import com.springboot.blogapp.dto.LoginDto;
+import com.springboot.blogapp.dto.RegisterDto;
 import com.springboot.blogapp.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,4 +27,10 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+        String response = authService.register(registerDto);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
 }
