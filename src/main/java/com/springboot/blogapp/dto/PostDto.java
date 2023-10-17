@@ -21,6 +21,9 @@ public class PostDto {
 
     @NotEmpty
     private String content;
-    
+
     private Set<CommentDto> commentDtoSet;
+
+    @NotEmpty
+    private Long categoryId;
 }
