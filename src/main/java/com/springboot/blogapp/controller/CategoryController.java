@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/categories")
 public class CategoryController {
@@ -32,5 +34,12 @@ public class CategoryController {
         CategoryDto category = categoryService.getCategory(categoryId);
 
         return new ResponseEntity<>(category, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoryDto>> getAllCategories() {
+        List<CategoryDto> categories = categoryService.getAllCategories();
+
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 }
