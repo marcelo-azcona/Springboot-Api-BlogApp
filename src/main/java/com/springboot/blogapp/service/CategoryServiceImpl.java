@@ -7,6 +7,9 @@ import com.springboot.blogapp.repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class CategoryServiceImpl implements CategoryService {
 
     private CategoryRepository categoryRepository;
@@ -33,5 +36,15 @@ public class CategoryServiceImpl implements CategoryService {
                 () -> new ResourceNotFoundException("Category", "id", categoryId));
 
         return modelMapper.map(category, CategoryDto.class);
+    }
+
+    @Override
+    public List<CategoryDto> getAllCategories() {
+        List<Category> categories = categoryRepository.findAll();
+
+        return categories
+                .stream()
+                .map(category -> modelMapper.map(category, CategoryDto.class))
+                .collect(Collectors.toList());
     }
 }
