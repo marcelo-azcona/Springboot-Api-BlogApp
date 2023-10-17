@@ -42,4 +42,14 @@ public class CategoryController {
 
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto categoryDto,
+                                                      @PathVariable(name = "id") Long categoryId) {
+        CategoryDto updatedCategory = categoryService.updateCategory(categoryDto, categoryId);
+
+        return new ResponseEntity<>(updatedCategory, HttpStatus.CREATED);
+    }
+
 }
