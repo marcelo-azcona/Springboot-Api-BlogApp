@@ -46,7 +46,7 @@ public class SecurityConfig {
                         authorize.requestMatchers(HttpMethod.GET, "/v1/**").permitAll()
                                 .requestMatchers("/v1/auth/**").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
-                                .requestMatchers("/v3/api-docs").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
                                 .anyRequest().authenticated()
                 ).httpBasic(Customizer.withDefaults());
 
