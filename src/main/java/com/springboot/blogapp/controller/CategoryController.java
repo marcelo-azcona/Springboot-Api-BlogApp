@@ -2,6 +2,7 @@ package com.springboot.blogapp.controller;
 
 import com.springboot.blogapp.dto.CategoryDto;
 import com.springboot.blogapp.service.CategoryService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    @SecurityRequirement(name = "Basic Authentication")
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CategoryDto> addCategory(@RequestBody CategoryDto categoryDto) {
@@ -43,6 +45,7 @@ public class CategoryController {
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "Basic Authentication")
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto categoryDto,
@@ -52,6 +55,7 @@ public class CategoryController {
         return new ResponseEntity<>(updatedCategory, HttpStatus.CREATED);
     }
 
+    @SecurityRequirement(name = "Basic Authentication")
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable(name = "id") Long categoryId) {

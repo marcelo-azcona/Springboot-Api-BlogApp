@@ -4,6 +4,7 @@ import com.springboot.blogapp.dto.PostDto;
 import com.springboot.blogapp.payload.PostResponse;
 import com.springboot.blogapp.service.PostService;
 import com.springboot.blogapp.utils.AppConstants;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class PostController {
         this.postService = postService;
     }
 
+    @SecurityRequirement(name = "Basic Authentication")
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto) {
@@ -45,6 +47,7 @@ public class PostController {
         return new ResponseEntity<>(postService.getPostById(id), HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "Basic Authentication")
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto,
@@ -55,6 +58,7 @@ public class PostController {
         return new ResponseEntity<>(postResponse, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "Basic Authentication")
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePost(@PathVariable(name = "id") long id) {
