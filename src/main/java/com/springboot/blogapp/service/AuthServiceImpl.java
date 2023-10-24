@@ -53,11 +53,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String register(RegisterDto registerDto) {
 
-        if (userRepository.existByUsername(registerDto.getUsername())) {
+        if (userRepository.existsByUsername(registerDto.getUsername())) {
             throw new BlogApiException(HttpStatus.BAD_REQUEST, "Username is already in use!");
         }
 
-        if (userRepository.existByEmail(registerDto.getEmail())) {
+        if (userRepository.existsByEmail(registerDto.getEmail())) {
             throw new BlogApiException(HttpStatus.BAD_REQUEST, "Email is already in use!");
         }
 
@@ -71,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
         Role userRole = roleRepository.findByName("ROLE_USER").get();
         roles.add(userRole);
         newUser.setRoles(roles);
-        
+
         userRepository.save(newUser);
 
         return "User registered success";
