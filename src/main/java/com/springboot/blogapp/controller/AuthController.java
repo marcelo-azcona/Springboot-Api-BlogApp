@@ -3,6 +3,7 @@ package com.springboot.blogapp.controller;
 import com.springboot.blogapp.dto.LoginDto;
 import com.springboot.blogapp.dto.RegisterDto;
 import com.springboot.blogapp.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ public class AuthController {
 
     private AuthService authService;
 
+    @Autowired
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
