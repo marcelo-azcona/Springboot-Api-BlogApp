@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.springboot.blogapp</groupId>
     <artifactId>springboot-blog-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>springboot-blog-api</name>
     <description>Springboot REST API for a blog</description>
     <properties>
